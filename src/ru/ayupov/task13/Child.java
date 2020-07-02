@@ -18,19 +18,17 @@ public class Child {
 
     public String eat(Foods food) throws FeedingException {
         String result = "";
-        if (searchFoodInApprovedList(food)) {
-            result = "съел " + food.getTitle() + " за обе щеки";
-        } else {
-            try {
+        try {
+            if (searchFoodInApprovedList(food)) {
+                result = "съел " + food.getTitle() + " за обе щеки";
+            } else {
                 throw new FeedingException("Ребенок не любит " + food.getTitle());
-            } catch (FeedingException ex) {
-                throw ex;
-            } finally {
-                System.out.println("спасибо, мама");//TODO: Есть ли иной способ для вывода "спасибо, мама" из класса ребенка?
             }
+        } finally {
+            result += System.lineSeparator() + "спасибо, мама";
         }
-        result += System.lineSeparator() + "спасибо, мама";
         return result;
+
     }
 
     private boolean searchFoodInApprovedList(Foods food) {
@@ -41,5 +39,4 @@ public class Child {
         }
         return false;
     }
-
 }
